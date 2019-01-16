@@ -3,22 +3,31 @@ import React from 'react';
 class App extends React.Component {
 
     state = {
-        user: {}
+        carency: []
     };
 
     //fetch or axios
     componentDidMount() {
-        fetch("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json")
+        setTimeout(()=>{
+            
+            fetch("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5")
             .then(x => {
-                console.log("---Валюта x---", x.json());
-                //let data=x.json();
-                //console.log("---Валюта x---", data);
-                //console.log("---Валюта data---", x.data);
+                return x.json();
+            })
+            .then(data => {
+
+                console.log("----data----", data);
+                throw new Error("Hello Peter");
+            })
+            .catch(er=> {
+                alert(`Помилка ${er.message}`)
             });
+        }, 2000);
+        
     }
 
     render() {
-        console.log("----props-----", this.props);
+        console.log("----props-----", this.state);
         let p=13;
         return (
             <div>
